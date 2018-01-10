@@ -7,10 +7,18 @@
  */
 
 $incognita = htmlspecialchars($_POST['incognita']);
+$letra = isset($_POST['letra']) ? htmlspecialchars($_POST['letra']) : '';
+
 ?>
 <h1>
 <?php
-    for($i=0; $i<strlen($incognita); $i++) echo "_ ";
+    for($i=0; $i<strlen($incognita); $i++){
+        if($incognita[$i] === $letra) {
+            echo $letra . " ";
+        } else {
+            echo "_ ";
+        }
+    }
 ?>
 </h1>
 
