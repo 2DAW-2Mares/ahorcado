@@ -14,12 +14,14 @@ if(preg_match("%[a-z]%", $letra) && !in_array($letra, $letras))
 ?>
 <h1>
 <?php
+    $aciertos = 0;
     for($i=0; $i<strlen($incognita); $i++){
         $coincidencia = false;
         foreach ($letras as $letra) {
             if($incognita[$i] === $letra) {
                 echo $letra . " ";
                 $coincidencia = true;
+                $aciertos++;
             } 
         }
         if(!$coincidencia) {
@@ -29,6 +31,12 @@ if(preg_match("%[a-z]%", $letra) && !in_array($letra, $letras))
 ?>
 </h1>
 
+<?php if($aciertos === strlen($incognita)) : ?>
+<h2>
+    Ganaste!!!!
+    <a href="index.html">Otra palabra</a>
+</h2>
+<?php else : ?>
 <form action="" method="post">
     <input type="hidden" name="incognita" value="<?php echo $incognita ?>" />
         <?php for($j=0; $j < count($letras) ; $j++) : ?>
@@ -44,4 +52,4 @@ if(preg_match("%[a-z]%", $letra) && !in_array($letra, $letras))
     </select>
     <input type="submit" value="Enviar" />
 </form>
-
+<?php endif; ?>
