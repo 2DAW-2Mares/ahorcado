@@ -9,7 +9,8 @@
 $incognita = htmlspecialchars($_POST['incognita']);
 $letra = isset($_POST['letra']) ? htmlspecialchars($_POST['letra']) : '';
 $letras = isset($_POST['letras']) ? $_POST['letras'] : array();
-$letras[] = $letra;
+if(preg_match("%[a-z]%", $letra))
+    $letras[] = $letra;
 ?>
 <h1>
 <?php
