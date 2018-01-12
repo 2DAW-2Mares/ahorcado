@@ -7,6 +7,7 @@
  */
 // var_dump($_POST);
 $incognita = htmlspecialchars($_POST['incognita']);
+$vidas = isset($_POST['vidas']) ? (int)($_POST['vidas']) : 7;
 $letra = isset($_POST['letra']) ? htmlspecialchars($_POST['letra']) : '';
 $letras = isset($_POST['letras']) ? $_POST['letras'] : array();
 if(preg_match("%[a-z]%", $letra) && !in_array($letra, $letras))
@@ -15,6 +16,7 @@ if(preg_match("%[a-z]%", $letra) && !in_array($letra, $letras))
 <h1>
 <?php
     $aciertos = 0;
+    $enEstaOcasionHaAcertado = false;
     for($i=0; $i<strlen($incognita); $i++){
         $coincidencia = false;
         foreach ($letras as $letra) {
@@ -22,11 +24,15 @@ if(preg_match("%[a-z]%", $letra) && !in_array($letra, $letras))
                 echo $letra . " ";
                 $coincidencia = true;
                 $aciertos++;
+                $enEstaOcasionHaAcertado = true;
             } 
         }
         if(!$coincidencia) {
                 echo "_ ";
         }
+    }
+    if(!$enEstaOcasionHaAcertado) {
+        $vidas--;
     }
 ?>
 </h1>
@@ -39,6 +45,7 @@ if(preg_match("%[a-z]%", $letra) && !in_array($letra, $letras))
 <?php else : ?>
 <form action="" method="post">
     <input type="hidden" name="incognita" value="<?php echo $incognita ?>" />
+    <input type="hidden" name="vidas" value="<?php echo $vidas ?>" />
         <?php for($j=0; $j < count($letras) ; $j++) : ?>
     <input type="hidden" name="letras[<?php echo $j?>]" value="<?php echo $letras[$j] ?>" />
             <?php echo $letras[$j] ?>
