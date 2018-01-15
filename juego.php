@@ -24,7 +24,8 @@ if(preg_match("%[a-z]%", $letra) && !in_array($letra, $letras))
                 echo $letra . " ";
                 $coincidencia = true;
                 $aciertos++;
-                $enEstaOcasionHaAcertado = true;
+                if($letra == $letras[count($letras)-1])
+                    $enEstaOcasionHaAcertado = true;
             } 
         }
         if(!$coincidencia) {
@@ -40,6 +41,11 @@ if(preg_match("%[a-z]%", $letra) && !in_array($letra, $letras))
 <?php if($aciertos === strlen($incognita)) : ?>
 <h2>
     Ganaste!!!!
+    <a href="index.html">Otra palabra</a>
+</h2>
+<?php elseif($vidas === 0) : ?>
+<h2>
+    Perdiste!!!!
     <a href="index.html">Otra palabra</a>
 </h2>
 <?php else : ?>
